@@ -10,14 +10,6 @@ import SwiftUI
 
 struct ContentView: View {
     var viewModel: EmojiMemoryGame
-    
-    var fontSize: Font {
-        if viewModel.cards.count == 10 {
-            return Font.body
-        } else {
-            return Font.largeTitle
-        }
-    }
 
     var body: some View {
         HStack {
@@ -30,7 +22,7 @@ struct ContentView: View {
         }
             .padding()
             .foregroundColor(Color.orange)
-            .font(fontSize)
+            .font(viewModel.cards.count >= 10 ? Font.body : Font.largeTitle)
     }
 }
 
