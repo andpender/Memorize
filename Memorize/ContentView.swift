@@ -17,6 +17,7 @@ struct ContentView: View {
                 CardView(card: card).onTapGesture {
                     self.viewModel.choose(card: card)
                 }
+                    .aspectRatio(2 / 3, contentMode: .fit)
             }
         }
             .padding()
@@ -43,6 +44,7 @@ struct CardView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+
         ContentView(viewModel: EmojiMemoryGame())
     }
 }
