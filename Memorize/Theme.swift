@@ -12,5 +12,8 @@ import SwiftUI
 struct Theme {
     var name: String
     var emojiSet: Array<String>
-    var color: UIColor
+    var numberOfCardsToShow: Int {
+        Int.random(in: 1...emojiSet.count)
+    }
+    var color: Color
 }

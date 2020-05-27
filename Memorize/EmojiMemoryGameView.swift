@@ -12,13 +12,31 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
 
     var body: some View {
-        Grid(viewModel.cards) { card in
-            CardView(card: card).onTapGesture {
-                self.viewModel.choose(card: card)
-            }.padding(5)
+        VStack {
+            Text(viewModel.chosenTheme.name)
+                .padding()
+                .font(.largeTitle)
+            Text("Score: \(viewModel.score)")
+                .font(.caption)
+
+            Grid(viewModel.cards) { card in
+                CardView(card: card).onTapGesture {
+                    self.viewModel.choose(card: card)
+                }.padding(5)
+            }
+                .padding()
+                .foregroundColor(viewModel.chosenTheme.color)
+            Button(action: {
+                self.viewModel.newGame()
+            }) {
+                Text("New Game")
+            }
+                .font(.body)
+                .padding()
+                .background(LinearGradient(gradient: Gradient(colors: [viewModel.chosenTheme.color, .white]), startPoint: .top, endPoint: .bottom))
+                .cornerRadius(40.0)
+                .foregroundColor(.black)
         }
-            .padding()
-            .foregroundColor(Color.orange)
     }
 }
 
@@ -34,12 +52,12 @@ struct CardView: View {
     func body(for size: CGSize) -> some View {
         ZStack {
             if card.isFaceUp {
-                RoundedRectangle(cornerRadius: cornerRaidus).fill(Color.white)
-                RoundedRectangle(cornerRadius: cornerRaidus).stroke(lineWidth: edgeLineWidth)
+                RoundedRectangle(cornerRadius: cornerRadius).fill(Color.white)
+                RoundedRectangle(cornerRadius: cornerRadius).stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             } else {
                 if !card.isMatched {
-                    RoundedRectangle(cornerRadius: cornerRaidus).fill()
+                    RoundedRectangle(cornerRadius: cornerRadius).fill()
                 }
             }
         }
@@ -47,7 +65,8 @@ struct CardView: View {
     }
 
     // MARK: - Drawing Constants
-    let cornerRaidus: CGFloat = 10.0
+    let cornerRadius: CGFloat = 10.0
+    let buttonCornerRadius: CGFloat = 40.0
     let edgeLineWidth: CGFloat = 3
     func fontSize(for size: CGSize) -> CGFloat {
         min(size.width, size.height) * 0.75

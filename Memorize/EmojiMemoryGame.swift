@@ -9,18 +9,28 @@
 import Foundation
 
 class EmojiMemoryGame: ObservableObject {
-    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
-    static private var themes = [
+    @Published private var model: MemoryGame<String>
+
+    private var themes = [
         Theme(name: "Default", emojiSet: ["👻", "👽", "🐮", "🚴‍♂️", "🐶", "🤖", "🎃", "🐱", "🧘", "🎸", "⌚️", "🖥"], color: .red),
-        Theme(name: "Animals", emojiSet: ["🐶","🐱","🐭","🐹","🐰","🦊","🐨","🐼"], color: .brown),
-        Theme(name: "Food", emojiSet: ["🍏","🍎","🍐","🍊","🍋","🍌","🍉","🍇"], color: .blue)
+        Theme(name: "Animals", emojiSet: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐨", "🐼"], color: .green),
+        Theme(name: "Food", emojiSet: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇"], color: .blue)
     ]
 
-    static func createMemoryGame() -> MemoryGame<String> {
-        let emojis = themes[Int.random(in: 0..<themes.count)].emojiSet
-        return MemoryGame<String>(numberOfPairsOfCards: 6) { pairIndex in
-            return emojis[pairIndex]
+    static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
+        return MemoryGame<String>(numberOfPairsOfCards: theme.numberOfCardsToShow) { pairIndex in
+            theme.emojiSet[pairIndex]
         }
+    }
+
+    func newGame() {
+        chosenTheme = themes[Int.random(in: 0..<themes.count)]
+        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
+    }
+
+    init() {
+        chosenTheme = themes[Int.random(in: 0..<themes.count)]
+        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
     }
 
     // MARK: - Access to the Model
@@ -28,6 +38,13 @@ class EmojiMemoryGame: ObservableObject {
     var cards: Array<MemoryGame<String>.Card> {
         model.cards
     }
+    
+    var score: Int {
+        model.score
+    }
+    
+    private(set) var chosenTheme: Theme
+    
 
     // MARK: - Intent
 
