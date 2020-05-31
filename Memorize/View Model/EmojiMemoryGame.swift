@@ -13,13 +13,14 @@ class EmojiMemoryGame: ObservableObject {
     private(set) var chosenTheme: Theme
 
     private var themes = [
-        Theme(name: "Default", emojiSet: ["👻", "👽", "🐮", "🚴‍♂️", "🐶", "🤖", "🎃", "🐱", "🧘", "🎸", "⌚️", "🖥"], color: .red),
+        Theme(name: "Default", emojiSet: ["👻", "👽", "🐮", "🚴‍♂️", "🐶", "🤖", "🎃", "🐱", "🧘", "🎸", "⌚️", "🖥"], numberOfCardsToShow: 12, color: .red),
         Theme(name: "Animals", emojiSet: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐨", "🐼"], color: .green),
-        Theme(name: "Food", emojiSet: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇"], color: .blue)
+        Theme(name: "Food", emojiSet: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇"], numberOfCardsToShow: 8, color: .blue)
     ]
 
     static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
-        return MemoryGame<String>(numberOfPairsOfCards: theme.numberOfCardsToShow) { pairIndex in
+        let numberOfCards = theme.numberOfCardsToShow ?? Int.random(in: 1...theme.emojiSet.count)
+        return MemoryGame<String>(numberOfPairsOfCards: numberOfCards) { pairIndex in
             theme.emojiSet[pairIndex]
         }
     }
