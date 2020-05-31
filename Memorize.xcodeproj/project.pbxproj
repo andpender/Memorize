@@ -51,6 +51,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4924EE0D24839A35007D7DD8 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				49F53F07247D343F0087B5B9 /* Theme.swift */,
+				49EFEBCC247535E10067C8A8 /* MemoryGame.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		4924EE0E24839A5F007D7DD8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				49F53F01247D28150087B5B9 /* Array+Identifiable.swift */,
+				49F53EFF247D26C00087B5B9 /* Array+Only.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		4924EE0F24839A6C007D7DD8 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+				49EFEBCE247536DC0067C8A8 /* EmojiMemoryGame.swift */,
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		4924EE1024839A80007D7DD8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				49EFEBBC247534520067C8A8 /* EmojiMemoryGameView.swift */,
+				49F53F05247D2B180087B5B9 /* GridLayout.swift */,
+				49F53F03247D2A750087B5B9 /* Grid.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		49EFEBAC247534520067C8A8 = {
 			isa = PBXGroup;
 			children = (
@@ -70,16 +106,12 @@
 		49EFEBB7247534520067C8A8 /* Memorize */ = {
 			isa = PBXGroup;
 			children = (
+				4924EE1024839A80007D7DD8 /* View */,
+				4924EE0F24839A6C007D7DD8 /* View Model */,
+				4924EE0E24839A5F007D7DD8 /* Extensions */,
+				4924EE0D24839A35007D7DD8 /* Model */,
 				49EFEBB8247534520067C8A8 /* AppDelegate.swift */,
 				49EFEBBA247534520067C8A8 /* SceneDelegate.swift */,
-				49EFEBBC247534520067C8A8 /* EmojiMemoryGameView.swift */,
-				49F53F05247D2B180087B5B9 /* GridLayout.swift */,
-				49F53F03247D2A750087B5B9 /* Grid.swift */,
-				49EFEBCE247536DC0067C8A8 /* EmojiMemoryGame.swift */,
-				49F53F07247D343F0087B5B9 /* Theme.swift */,
-				49EFEBCC247535E10067C8A8 /* MemoryGame.swift */,
-				49F53F01247D28150087B5B9 /* Array+Identifiable.swift */,
-				49F53EFF247D26C00087B5B9 /* Array+Only.swift */,
 				49EFEBBE247534560067C8A8 /* Assets.xcassets */,
 				49EFEBC3247534560067C8A8 /* LaunchScreen.storyboard */,
 				49EFEBC6247534560067C8A8 /* Info.plist */,
