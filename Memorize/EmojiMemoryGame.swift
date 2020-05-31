@@ -10,6 +10,7 @@ import Foundation
 
 class EmojiMemoryGame: ObservableObject {
     @Published private var model: MemoryGame<String>
+    private(set) var chosenTheme: Theme
 
     private var themes = [
         Theme(name: "Default", emojiSet: ["👻", "👽", "🐮", "🚴‍♂️", "🐶", "🤖", "🎃", "🐱", "🧘", "🎸", "⌚️", "🖥"], color: .red),
@@ -23,11 +24,6 @@ class EmojiMemoryGame: ObservableObject {
         }
     }
 
-    func newGame() {
-        chosenTheme = themes[Int.random(in: 0..<themes.count)]
-        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
-    }
-
     init() {
         chosenTheme = themes[Int.random(in: 0..<themes.count)]
         model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
@@ -38,17 +34,20 @@ class EmojiMemoryGame: ObservableObject {
     var cards: Array<MemoryGame<String>.Card> {
         model.cards
     }
-    
+
     var score: Int {
         model.score
     }
-    
-    private(set) var chosenTheme: Theme
-    
+
 
     // MARK: - Intent
 
     func choose(card: MemoryGame<String>.Card) {
         model.choose(card: card)
+    }
+
+    func newGame() {
+        chosenTheme = themes[Int.random(in: 0..<themes.count)]
+        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
     }
 }
