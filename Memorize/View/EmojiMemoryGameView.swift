@@ -13,7 +13,7 @@ struct EmojiMemoryGameView: View {
 
     var body: some View {
         VStack {
-            Text(viewModel.chosenTheme.name)
+            Text(viewModel.themeTitle)
                 .padding()
                 .font(.largeTitle)
             Text("Score: \(viewModel.score)")
@@ -25,7 +25,7 @@ struct EmojiMemoryGameView: View {
                 }.padding(5)
             }
                 .padding()
-                .foregroundColor(viewModel.chosenTheme.color)
+            .foregroundColor(viewModel.themeColor)
             
             // New game button
             Button(action: {
@@ -35,7 +35,7 @@ struct EmojiMemoryGameView: View {
             }
                 .font(.body)
                 .padding()
-                .background(LinearGradient(gradient: Gradient(colors: [viewModel.chosenTheme.color, .white]), startPoint: .top, endPoint: .bottom))
+            .background(LinearGradient(gradient: Gradient(colors: [viewModel.themeColor, .white]), startPoint: .top, endPoint: .bottom))
                 .cornerRadius(40.0)
                 .foregroundColor(.black)
         }

@@ -6,28 +6,23 @@
 //  Copyright © 2020 Andrew Pender. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 class EmojiMemoryGame: ObservableObject {
-    @Published private var model: MemoryGame<String>
-    private(set) var chosenTheme: Theme
+    @Published private var model: MemoryGame<String> = createMemoryGame()
 
-    private var themes = [
+    static var themes = [
         Theme(name: "Default", emojiSet: ["👻", "👽", "🐮", "🚴‍♂️", "🐶", "🤖", "🎃", "🐱", "🧘", "🎸", "⌚️", "🖥"], numberOfCardsToShow: 12, color: .red),
         Theme(name: "Animals", emojiSet: ["🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐨", "🐼"], color: .green),
         Theme(name: "Food", emojiSet: ["🍏", "🍎", "🍐", "🍊", "🍋", "🍌", "🍉", "🍇"], numberOfCardsToShow: 8, color: .blue)
     ]
 
-    static func createMemoryGame(theme: Theme) -> MemoryGame<String> {
+    static func createMemoryGame() -> MemoryGame<String> {
+        let theme = themes[Int.random(in: 0..<themes.count)]
         let numberOfCards = theme.numberOfCardsToShow ?? Int.random(in: 1...theme.emojiSet.count)
-        return MemoryGame<String>(numberOfPairsOfCards: numberOfCards) { pairIndex in
+        return MemoryGame<String>(theme: theme, numberOfPairsOfCards: numberOfCards) { pairIndex in
             theme.emojiSet[pairIndex]
         }
-    }
-
-    init() {
-        chosenTheme = themes[Int.random(in: 0..<themes.count)]
-        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
     }
 
     // MARK: - Access to the Model
@@ -39,6 +34,14 @@ class EmojiMemoryGame: ObservableObject {
     var score: Int {
         model.score
     }
+    
+    var themeColor: Color {
+        model.theme.color
+    }
+    
+    var themeTitle: String {
+        model.theme.name
+    }
 
 
     // MARK: - Intent
@@ -48,7 +51,6 @@ class EmojiMemoryGame: ObservableObject {
     }
 
     func newGame() {
-        chosenTheme = themes[Int.random(in: 0..<themes.count)]
-        model = EmojiMemoryGame.createMemoryGame(theme: chosenTheme)
+        model = EmojiMemoryGame.createMemoryGame()
     }
 }
